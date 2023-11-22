@@ -3,6 +3,7 @@ package com.koleff.habittracker.ui.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Column
@@ -16,9 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.koleff.habittracker.domain.Skill
 import com.koleff.habittracker.ui.theme.HabitTrackerTheme
+import com.koleff.habittracker.ui.viewModel.SkillViewModel
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: SkillViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +58,7 @@ fun MyComposableActivity(viewModel: SkillViewModel) {
         )
         Button(
             onClick = {
+                viewModel.updateSkill()
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -62,9 +67,30 @@ fun MyComposableActivity(viewModel: SkillViewModel) {
             Text(text = "Click me")
         }
 
+        // Display the skill information if it is not null
+        skill?.let {
+            SkillCard(skill = it)
+        }
     }
 }
 
+@Composable
+fun SkillCard(skill: Skill) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .background(MaterialTheme.colorScheme.primary)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(text = "Skill Name: ${skill.name}", fontWeight = FontWeight.Bold)
+            Text(text = "Type: ${skill.type}")
+            Text(text = "Category: ${skill.category}")
+        }
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
