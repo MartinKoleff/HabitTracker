@@ -2,6 +2,7 @@ package com.koleff.habittracker.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.koleff.habittracker.R
 import com.koleff.habittracker.domain.Skill
 import com.koleff.habittracker.domain.SkillCategory
 import com.koleff.habittracker.domain.SkillType
@@ -16,9 +17,11 @@ class SkillViewModel : ViewModel() {
     fun updateSkill() {
         viewModelScope.launch {
             _skill.value = Skill(
-                "Learning Jetpack Compose",
-                SkillType.COMPLETABLE,
-                SkillCategory.LEARNING
+                name = "Jetpack Compose",
+                description = "Learn Jetpack Compose framework in Android",
+                imageId = R.drawable.jetpack_compose,
+                type = SkillType.COMPLETABLE,
+                category = SkillCategory.LEARNING
             )
         }
     }
