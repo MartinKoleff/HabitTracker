@@ -52,6 +52,7 @@ fun ImageCard(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .fillMaxHeight()
                     .background(
                         brush = Brush.verticalGradient(
                             listOf(Color.Transparent, Color.Black)
@@ -63,6 +64,7 @@ fun ImageCard(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .fillMaxHeight()
                     .padding(12.dp),
                 contentAlignment = Alignment.BottomCenter
             ) {
