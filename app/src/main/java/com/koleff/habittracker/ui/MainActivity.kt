@@ -1,4 +1,4 @@
-package com.koleff.habittracker.ui.activity
+package com.koleff.habittracker.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,7 +14,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,14 +21,16 @@ import com.koleff.habittracker.R
 import com.koleff.habittracker.domain.Skill
 import com.koleff.habittracker.domain.SkillCategory
 import com.koleff.habittracker.domain.SkillType
-import com.koleff.habittracker.ui.ImageCard
-import com.koleff.habittracker.ui.ListViewImageCards
+import com.koleff.habittracker.ui.composable.BottomNavigationBar
+import com.koleff.habittracker.ui.composable.ListViewImageCards
+import com.koleff.habittracker.ui.composable.TopToolbar
 import com.koleff.habittracker.ui.theme.HabitTrackerTheme
 import com.koleff.habittracker.ui.viewModel.SkillViewModel
 
 class MainActivity : ComponentActivity() {
     private val viewModel: SkillViewModel by viewModels()
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,7 +38,17 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             HabitTrackerTheme {
-                ListViewImageCards(items = skillList)
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        TopToolbar()
+                    },
+                    bottomBar = {
+                        BottomNavigationBar()
+                    }
+                ){
+                    ListViewImageCards(items = skillList)
+                }
 
 //                Surface(
 //                    modifier = Modifier.fillMaxSize(),
