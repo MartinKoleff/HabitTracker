@@ -22,7 +22,7 @@ import com.koleff.habittracker.domain.Skill
 import com.koleff.habittracker.domain.SkillCategory
 import com.koleff.habittracker.domain.SkillType
 import com.koleff.habittracker.ui.composable.BottomNavigationBar
-import com.koleff.habittracker.ui.composable.ListViewImageCards
+import com.koleff.habittracker.ui.composable.ImageCardGrid
 import com.koleff.habittracker.ui.composable.TopToolbar
 import com.koleff.habittracker.ui.theme.HabitTrackerTheme
 import com.koleff.habittracker.ui.viewModel.SkillViewModel
@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                         BottomNavigationBar()
                     }
                 ){
-                    ListViewImageCards(items = skillList)
+                    ImageCardGrid(skillList = skillList)
                 }
 
 //                Surface(
@@ -63,10 +63,11 @@ class MainActivity : ComponentActivity() {
     private fun mockupSkills(): List<Skill> {
         val skillList = mutableListOf<Skill>()
         var skill: Skill
+        val n = 27
 
-        repeat(7) {
+        repeat(n) {
             skill = Skill(
-                name = "Jetpack Compose$it",
+                name = "Jetpack Compose $it",
                 description = "Learn Jetpack Compose framework in Android",
                 imageId = R.drawable.jetpack_compose,
                 type = SkillType.COMPLETABLE,

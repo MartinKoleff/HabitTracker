@@ -1,14 +1,17 @@
-package com.koleff.habittracker.ui
+package com.koleff.habittracker.ui.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -82,43 +85,27 @@ fun ImageCard(
 }
 
 @Composable
-fun ListViewImageCards(items: List<Skill>) {
-    val rows = items.size / 2  //2 columns
-    val columns = 2
+fun ImageCardGrid(skillList: List<Skill>) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2)
+    ) {
+        items(skillList.size) { currentSkillId ->
+            val currentSkill = skillList[currentSkillId]
 
-    Column {
-        repeat(rows) {
-            Row(
+            ImageCard(
+                painter = painterResource(id = currentSkill.imageId),
+                contentDescription = currentSkill.description,
+                title = currentSkill.name,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                repeat(columns) { columnIndex ->
-                    //Second ImageCard has top margin.
-                    val modifier = if (columnIndex % 2 == 0) {
-                        Modifier
-                            .weight(1f)
-                            .padding(12.dp)
-                    } else {
-                        Modifier
-                            .weight(1f)
-                            .padding(
-                                start = 12.dp,
-                                top = 48.dp,
-                                end = 12.dp,
-                                bottom = 12.dp
-                            )
-                    }
-
-                    Box(modifier = modifier) {
-                        ImageCard(
-                            painter = painterResource(id = items[columnIndex].imageId),
-                            contentDescription = items[columnIndex].description,
-                            title = String.format("Skill: " + items[columnIndex].name)
-                        )
-                    }
-                }
-            }
+                    .padding(
+                        start = 8.dp,
+                        end = 8.dp,
+                        top = if (currentSkillId % 2 == 1) 50.dp else 8.dp, //TODO: fix it 
+                        bottom = 8.dp
+                    )
+            )
         }
     }
 }
+
