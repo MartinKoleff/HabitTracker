@@ -78,3 +78,45 @@ fun ImageCard(
         }
     }
 }
+
+@Composable
+fun ListViewImageCards(items: List<Skill>) {
+    val rows = items.size / 2  //2 columns
+    val columns = 2
+
+    Column {
+        repeat(rows) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                repeat(columns) { columnIndex ->
+                    //Second ImageCard has top margin.
+                    val modifier = if (columnIndex % 2 == 0) {
+                        Modifier
+                            .weight(1f)
+                            .padding(12.dp)
+                    } else {
+                        Modifier
+                            .weight(1f)
+                            .padding(
+                                start = 12.dp,
+                                top = 48.dp,
+                                end = 12.dp,
+                                bottom = 12.dp
+                            )
+                    }
+
+                    Box(modifier = modifier) {
+                        ImageCard(
+                            painter = painterResource(id = items[columnIndex].imageId),
+                            contentDescription = items[columnIndex].description,
+                            title = String.format("Skill: " + items[columnIndex].name)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}

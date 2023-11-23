@@ -23,6 +23,7 @@ import com.koleff.habittracker.domain.Skill
 import com.koleff.habittracker.domain.SkillCategory
 import com.koleff.habittracker.domain.SkillType
 import com.koleff.habittracker.ui.ImageCard
+import com.koleff.habittracker.ui.ListViewImageCards
 import com.koleff.habittracker.ui.theme.HabitTrackerTheme
 import com.koleff.habittracker.ui.viewModel.SkillViewModel
 
@@ -32,42 +33,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val skillList: List<Skill> = mockupSkills()
+
         setContent {
             HabitTrackerTheme {
-                val painterResource = painterResource(id = R.drawable.jetpack_compose)
-                val description = "Learn Jetpack Compose"
-                val title = "Skill: Jetpack Compose"
-
-                Row {
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(16.dp)
-                    ) {
-                        ImageCard(
-                            painter = painterResource,
-                            contentDescription = description,
-                            title = title
-                        )
-                    }
-
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(
-                                start = 12.dp,
-                                top = 48.dp,
-                                end = 12.dp,
-                                bottom = 12.dp
-                            )
-                    ) {
-                        ImageCard(
-                            painter = painterResource,
-                            contentDescription = description,
-                            title = title
-                        )
-                    }
-                }
+                ListViewImageCards(items = skillList)
 
 //                Surface(
 //                    modifier = Modifier.fillMaxSize(),
@@ -77,6 +47,24 @@ class MainActivity : ComponentActivity() {
 //                }
             }
         }
+    }
+
+    private fun mockupSkills(): List<Skill> {
+        val skillList = mutableListOf<Skill>()
+        var skill: Skill
+
+        repeat(7) {
+            skill = Skill(
+                name = "Jetpack Compose$it",
+                description = "Learn Jetpack Compose framework in Android",
+                imageId = R.drawable.jetpack_compose,
+                type = SkillType.COMPLETABLE,
+                category = SkillCategory.LEARNING
+            )
+            skillList.add(skill)
+        }
+
+        return skillList
     }
 }
 
