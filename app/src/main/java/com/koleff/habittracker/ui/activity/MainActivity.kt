@@ -14,10 +14,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.koleff.habittracker.R
 import com.koleff.habittracker.domain.Skill
+import com.koleff.habittracker.domain.SkillCategory
+import com.koleff.habittracker.domain.SkillType
+import com.koleff.habittracker.ui.ImageCard
 import com.koleff.habittracker.ui.theme.HabitTrackerTheme
 import com.koleff.habittracker.ui.viewModel.SkillViewModel
 
@@ -26,14 +31,50 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             HabitTrackerTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MyComposableActivity(viewModel)
+                val painterResource = painterResource(id = R.drawable.jetpack_compose)
+                val description = "Learn Jetpack Compose"
+                val title = "Skill: Jetpack Compose"
+
+                Row {
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(16.dp)
+                    ) {
+                        ImageCard(
+                            painter = painterResource,
+                            contentDescription = description,
+                            title = title
+                        )
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(
+                                start = 12.dp,
+                                top = 48.dp,
+                                end = 12.dp,
+                                bottom = 12.dp
+                            )
+                    ) {
+                        ImageCard(
+                            painter = painterResource,
+                            contentDescription = description,
+                            title = title
+                        )
+                    }
                 }
+
+//                Surface(
+//                    modifier = Modifier.fillMaxSize(),
+//                    color = MaterialTheme.colorScheme.background
+//                ) {
+//                    MyComposableActivity(viewModel)
+//                }
             }
         }
     }
