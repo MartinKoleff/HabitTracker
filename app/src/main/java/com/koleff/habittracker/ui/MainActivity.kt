@@ -28,7 +28,7 @@ import com.koleff.habittracker.ui.theme.HabitTrackerTheme
 import com.koleff.habittracker.ui.viewModel.SkillViewModel
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: SkillViewModel by viewModels()
+    private val viewModel: SkillViewModel by viewModels() //Used for MyComposableActivity
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,63 +85,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun MyComposableActivity(viewModel: SkillViewModel) {
-    val skill by viewModel.skill.collectAsState()
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Click me",
-            style = MaterialTheme.typography.headlineLarge,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        Button(
-            onClick = {
-                viewModel.updateSkill()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-        ) {
-            Text(text = "Click me")
-        }
-
-        // Display the skill information if it is not null
-        skill?.let {
-            SkillCard(skill = it)
-        }
-    }
-}
-
-@Composable
-fun SkillCard(skill: Skill) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .background(MaterialTheme.colorScheme.primary)
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(text = "Skill Name: ${skill.name}", fontWeight = FontWeight.Bold)
-            Text(text = "Type: ${skill.type}")
-            Text(text = "Category: ${skill.category}")
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MyComposableActivityPreview() {
-    HabitTrackerTheme {
-        MyComposableActivity(SkillViewModel())
-    }
-}
