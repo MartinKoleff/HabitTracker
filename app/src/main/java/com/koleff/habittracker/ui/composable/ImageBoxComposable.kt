@@ -5,14 +5,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -29,6 +34,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.koleff.habittracker.domain.Skill
+import com.koleff.habittracker.ui.SkillCard
 
 @Composable
 fun ImageCard(
@@ -85,26 +91,50 @@ fun ImageCard(
 }
 
 @Composable
-fun ImageCardGrid(skillList: List<Skill>) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2)
-    ) {
-        items(skillList.size) { currentSkillId ->
-            val currentSkill = skillList[currentSkillId]
+fun SkillGrid(modifier: Modifier = Modifier,
+              skillList: List<Skill>) {
+    Row(modifier = modifier) {
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+        ) {
+            items(skillList.size / 2) { currentSkillId ->
+                val currentSkill = skillList[currentSkillId * 2]
 
-            ImageCard(
-                painter = painterResource(id = currentSkill.imageId),
-                contentDescription = currentSkill.description,
-                title = currentSkill.name,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        start = 8.dp,
-                        end = 8.dp,
-                        top = if (currentSkillId % 2 == 1) 50.dp else 8.dp, //TODO: fix it 
-                        bottom = 8.dp
+                ImageCard(
+                    painter = painterResource(id = currentSkill.imageId),
+                    contentDescription = currentSkill.description,
+                    title = currentSkill.name,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                )
+            }
+        }
+
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight()
+        ) {
+            items(skillList.size / 2) { currentSkillId ->
+                val currentSkill = skillList[currentSkillId * 2 + 1]
+                Spacer(
+                    modifier = Modifier.height(
+                        if (currentSkillId == 0) 50.dp else 0.dp
                     )
-            )
+                )
+
+                ImageCard(
+                    painter = painterResource(id = currentSkill.imageId),
+                    contentDescription = currentSkill.description,
+                    title = currentSkill.name,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                )
+            }
         }
     }
 }
