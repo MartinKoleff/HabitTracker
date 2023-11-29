@@ -26,7 +26,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.koleff.habittracker.domain.Skill
+import com.koleff.habittracker.data.Skill
 
 @Composable
 fun ImageCard(

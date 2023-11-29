@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.koleff.habittracker.domain.Skill
+import com.koleff.habittracker.data.Skill
 import com.koleff.habittracker.ui.theme.HabitTrackerTheme
 import com.koleff.habittracker.ui.viewModel.SkillViewModel
 
