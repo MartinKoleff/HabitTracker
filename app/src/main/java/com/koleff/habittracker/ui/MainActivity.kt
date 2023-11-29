@@ -22,7 +22,7 @@ import com.koleff.habittracker.domain.Skill
 import com.koleff.habittracker.domain.SkillCategory
 import com.koleff.habittracker.domain.SkillType
 import com.koleff.habittracker.ui.composable.BottomNavigationBar
-import com.koleff.habittracker.ui.composable.ImageCardGrid
+import com.koleff.habittracker.ui.composable.SkillGrid
 import com.koleff.habittracker.ui.composable.TopToolbar
 import com.koleff.habittracker.ui.theme.HabitTrackerTheme
 import com.koleff.habittracker.ui.viewModel.SkillViewModel
@@ -46,8 +46,13 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         BottomNavigationBar()
                     }
-                ){
-                    ImageCardGrid(skillList = skillList)
+                ) { innerPadding ->
+                    SkillGrid(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize(),
+                        skillList = skillList
+                    )
                 }
 
 //                Surface(
