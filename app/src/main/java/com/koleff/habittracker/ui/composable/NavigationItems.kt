@@ -22,6 +22,8 @@ fun NavigationItem(
     IconButton(
         onClick = {
             screen?.let {
+                if(navController.currentBackStackEntry!!.destination.route == screen.route) return@IconButton
+
                 navController.navigate(screen.route)
 
                 Log.d(
@@ -65,6 +67,8 @@ fun FloatingNavigationItem(
     FloatingActionButton(
         onClick = {
             screen?.let {
+                if(navController.currentBackStackEntry!!.destination.route == screen.route) return@FloatingActionButton
+
                 navController.navigate(screen.route)
 
                 Log.d(
