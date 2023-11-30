@@ -16,7 +16,7 @@ class FakeSkillRepositoryImpl : SkillRepository {
 
         repeat(n) {
             skill = Skill(
-                name = "Jetpack Compose ${it + 1}",
+                name = "Jetpack Compose $it",
                 description = "Learn Jetpack Compose framework in Android",
                 imageId = R.drawable.jetpack_compose,
                 type = SkillType.COMPLETABLE,
