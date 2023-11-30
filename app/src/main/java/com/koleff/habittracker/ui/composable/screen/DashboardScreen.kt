@@ -33,6 +33,7 @@ fun DashboardScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize(),
+            navController = navController,
             skillList = data.value ?: listOf()
         )
     }

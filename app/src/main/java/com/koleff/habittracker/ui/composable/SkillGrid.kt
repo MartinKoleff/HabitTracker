@@ -2,6 +2,7 @@ package com.koleff.habittracker.ui.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +27,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.koleff.habittracker.common.DataManager
+import com.koleff.habittracker.data.MainScreen
 import com.koleff.habittracker.data.Skill
 
 @Composable
@@ -33,7 +37,8 @@ fun ImageCard(
     painter: Painter,
     contentDescription: String,
     title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -43,7 +48,10 @@ fun ImageCard(
         )
     ) {
         //Image first, then gradient over it, then text over the gradient...
-        Box(modifier = Modifier.height(200.dp)) {
+        Box(modifier = Modifier
+            .height(200.dp)
+            .clickable { onClick.invoke() }
+        ) {
             Image(
                 painter = painter,
                 contentDescription = contentDescription,
@@ -83,8 +91,11 @@ fun ImageCard(
 }
 
 @Composable
-fun SkillGrid(modifier: Modifier = Modifier,
-              skillList: List<Skill>) {
+fun SkillGrid(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    skillList: List<Skill>
+) {
     Row(modifier = modifier) {
         LazyColumn(
             modifier = Modifier
@@ -101,7 +112,9 @@ fun SkillGrid(modifier: Modifier = Modifier,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
-                )
+                ) {
+                    openSkillDetailsScreen(currentSkill, navController)
+                }
             }
         }
 
@@ -112,6 +125,8 @@ fun SkillGrid(modifier: Modifier = Modifier,
         ) {
             items(skillList.size / 2) { currentSkillId ->
                 val currentSkill = skillList[currentSkillId * 2 + 1]
+
+                //Top margin for second column
                 Spacer(
                     modifier = Modifier.height(
                         if (currentSkillId == 0) 50.dp else 0.dp
@@ -125,9 +140,16 @@ fun SkillGrid(modifier: Modifier = Modifier,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
-                )
+                ) {
+                    openSkillDetailsScreen(currentSkill, navController)
+                }
             }
         }
     }
+}
+
+fun openSkillDetailsScreen(skill: Skill, navController: NavHostController) {
+    DataManager.selectedSkill = skill
+    navController.navigate(MainScreen.SkillDetails.route)
 }
 
