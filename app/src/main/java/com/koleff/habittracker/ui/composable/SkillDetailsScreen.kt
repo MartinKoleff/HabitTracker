@@ -10,20 +10,33 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.koleff.habittracker.data.Skill
+import com.koleff.habittracker.ui.viewModel.SkillDetailsViewModel
 
 @Composable
 fun SkillDetailsScreen(
-    selectedSkill: Skill,
+    selectedSkillId: Int,
+    skillDetailsViewModel: SkillDetailsViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
-    MainScreenScaffold("Skill details screen", navController) { innerPadding ->
-        SkillCard(selectedSkill, innerPadding)
+    val selectedSkill by skillDetailsViewModel.skill
+
+    LaunchedEffect(selectedSkillId) {
+        skillDetailsViewModel.getSkill(selectedSkillId)
+    }
+
+    MainScreenScaffold("Skill details screen $selectedSkillId", navController) { innerPadding ->
+        selectedSkill?.let { skill ->
+            SkillCard(skill, innerPadding)
+        }
     }
 }
 
