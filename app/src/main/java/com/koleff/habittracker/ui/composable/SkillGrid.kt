@@ -1,6 +1,5 @@
 package com.koleff.habittracker.ui.composable
 
-import android.os.Bundle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,7 +28,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.koleff.habittracker.common.DataManager
 import com.koleff.habittracker.data.MainScreen
 import com.koleff.habittracker.data.Skill
 
