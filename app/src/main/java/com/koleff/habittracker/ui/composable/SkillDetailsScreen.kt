@@ -28,7 +28,7 @@ fun SkillDetailsScreen(
 }
 
 @Composable
-fun SkillCard(skill: Skill, paddingValues: PaddingValues) {
+fun SkillCard(skill: Skill, paddingValues: PaddingValues) { //TODO: new details screen...
     Card(
         modifier = Modifier
             .fillMaxWidth()

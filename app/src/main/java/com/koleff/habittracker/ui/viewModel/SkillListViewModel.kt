@@ -11,7 +11,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,8 +22,8 @@ class SkillListViewModel @Inject constructor(
     private val skillRepository: SkillRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): ViewModel() {
-    private val _skills = MutableStateFlow<List<Skill>?>(null)
-    val skills: StateFlow<List<Skill>?> = _skills
+    private val _skills = MutableStateFlow<List<Skill>>(mutableListOf()) //TODO: add State class with real DataSource configuration
+    val skills: StateFlow<List<Skill>> = _skills
 
     init{
         getSkills()
@@ -33,3 +35,9 @@ class SkillListViewModel @Inject constructor(
         }
     }
 }
+
+//.stateIn(
+//        scope = viewModelScope,
+//        started = SharingStarted.WhileSubscribed(5000),
+//        initialValue = ResultWrapper.Loading,
+//    )

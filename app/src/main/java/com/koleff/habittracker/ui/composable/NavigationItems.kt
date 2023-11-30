@@ -21,9 +21,6 @@ fun NavigationItem(
 ) {
     IconButton(
         onClick = {
-//            if (navController.currentBackStackEntry == null) return@IconButton
-            //No need to navigate back if already on the Dashboard screen or no items inside backstack are found
-
             screen?.let {
                 navController.navigate(screen.route)
                 Log.d(
@@ -43,11 +40,6 @@ fun NavigationItem(
                     "BACKSTACK AFTER POP",
                     "${navController.currentBackStackEntry}, ${navController.currentBackStack.value.size}"
                 )
-
-//                val navigationRoute = navController.currentBackStackEntry?.destination?.route
-//                    ?: MainScreen.Dashboard.route
-//                navController.navigate(navigationRoute)
-//                TODO: Add Dashboard if backstack is empty?
             }
         }
     ) {
