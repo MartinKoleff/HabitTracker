@@ -3,6 +3,7 @@ package com.koleff.habittracker.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -29,7 +30,15 @@ class MainActivity : ComponentActivity() {
                 startDestination = MainScreen.Dashboard.route
             ) {
                 composable(MainScreen.Dashboard.route) { DashboardScreen(navController) }
-                composable(MainScreen.SkillDetails.route) { SkillDetailsScreen(DataManager.selectedSkill, navController) }
+                composable(MainScreen.SkillDetails.route) { backStackEntry ->
+                    val selectedSkillId =
+                        backStackEntry.arguments?.getString("skill_id")?.toInt() ?: -1
+
+                    SkillDetailsScreen(
+                        selectedSkillId = selectedSkillId,
+                        navController = navController
+                    )
+                }
                 composable(MainScreen.Search.route) { SearchScreen(navController) }
                 composable(MainScreen.Add.route) { AddSkillScreen(navController) }
             }
