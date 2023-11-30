@@ -7,20 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.koleff.habittracker.ui.composable.BottomNavigationBar
+import com.koleff.habittracker.ui.composable.MainScreenScaffold
 import com.koleff.habittracker.ui.composable.TopToolbar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(navController: NavHostController) {
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopToolbar("Search")
-        },
-        bottomBar = {
-            BottomNavigationBar(navController = navController)
-        }
-    ) { innerPadding ->
-        innerPadding
+    MainScreenScaffold("Search", navController) {
+
     }
 }

@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.navArgument
 import com.koleff.habittracker.ui.composable.BottomNavigationBar
+import com.koleff.habittracker.ui.composable.MainScreenScaffold
 import com.koleff.habittracker.ui.composable.SkillGrid
 import com.koleff.habittracker.ui.composable.TopToolbar
 import com.koleff.habittracker.ui.viewModel.SkillListViewModel
@@ -25,15 +26,7 @@ fun DashboardScreen(
     navController: NavHostController,
     skillListViewModel: SkillListViewModel = hiltViewModel()
 ) {
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopToolbar("Dashboard")
-        },
-        bottomBar = {
-            BottomNavigationBar(navController = navController)
-        }
-    ) { innerPadding ->
+    MainScreenScaffold("Dashboard", navController) { innerPadding ->
         val data = skillListViewModel.skills.collectAsState()
 
         SkillGrid(
