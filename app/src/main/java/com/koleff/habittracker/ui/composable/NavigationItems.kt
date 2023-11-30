@@ -1,5 +1,6 @@
 package com.koleff.habittracker.ui.composable
 
+import android.util.Log
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -8,6 +9,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import com.koleff.habittracker.data.MainScreen
 
+/**
+ * When screen is null -> navigate to latest backstack entry after popping the details screen
+ * */
 @Composable
 fun NavigationItem(
     navController: NavHostController,
@@ -17,18 +21,33 @@ fun NavigationItem(
 ) {
     IconButton(
         onClick = {
+//            if (navController.currentBackStackEntry == null) return@IconButton
+            //No need to navigate back if already on the Dashboard screen or no items inside backstack are found
+
             screen?.let {
                 navController.navigate(screen.route)
+                Log.d(
+                    "BACKSTACK",
+                    "${navController.currentBackStackEntry}, ${navController.currentBackStack.value.size}"
+                )
                 return@IconButton
             } ?: run {
+                Log.d(
+                    "BACKSTACK BEFORE POP",
+                    "${navController.currentBackStackEntry}, ${navController.currentBackStack.value.size}"
+                )
+
                 navController.popBackStack()
 
-                val currentBackStackEntry = navController.currentBackStackEntry ?: return@IconButton
-                currentBackStackEntry.destination.route?.let { route ->
-                    navController.navigate(route)
-                }
+                Log.d(
+                    "BACKSTACK AFTER POP",
+                    "${navController.currentBackStackEntry}, ${navController.currentBackStack.value.size}"
+                )
 
-                //TODO: Add Dashboard if backstack is empty?
+//                val navigationRoute = navController.currentBackStackEntry?.destination?.route
+//                    ?: MainScreen.Dashboard.route
+//                navController.navigate(navigationRoute)
+//                TODO: Add Dashboard if backstack is empty?
             }
         }
     ) {
@@ -36,6 +55,10 @@ fun NavigationItem(
     }
 }
 
+
+/**
+ * When screen is null -> navigate to latest backstack entry after popping the details screen
+ * */
 @Composable
 fun FloatingNavigationItem(
     navController: NavHostController,
@@ -51,7 +74,8 @@ fun FloatingNavigationItem(
             } ?: run {
                 navController.popBackStack()
 
-                val currentBackStackEntry = navController.currentBackStackEntry ?: return@FloatingActionButton
+                val currentBackStackEntry =
+                    navController.currentBackStackEntry ?: return@FloatingActionButton
                 currentBackStackEntry.destination.route?.let { route ->
                     navController.navigate(route)
                 }
