@@ -23,16 +23,20 @@ fun NavigationItem(
         onClick = {
             screen?.let {
                 navController.navigate(screen.route)
+
                 Log.d(
                     "BACKSTACK",
                     "${navController.currentBackStackEntry}, ${navController.currentBackStack.value.size}"
                 )
+
                 return@IconButton
             } ?: run {
                 Log.d(
                     "BACKSTACK BEFORE POP",
                     "${navController.currentBackStackEntry}, ${navController.currentBackStack.value.size}"
                 )
+                //Starting navigation and current navigation
+                if(navController.currentBackStack.value.size == 2) return@IconButton
 
                 navController.popBackStack()
 
@@ -62,17 +66,28 @@ fun FloatingNavigationItem(
         onClick = {
             screen?.let {
                 navController.navigate(screen.route)
+
+                Log.d(
+                    "BACKSTACK",
+                    "${navController.currentBackStackEntry}, ${navController.currentBackStack.value.size}"
+                )
+
                 return@FloatingActionButton
             } ?: run {
+                Log.d(
+                    "BACKSTACK BEFORE POP",
+                    "${navController.currentBackStackEntry}, ${navController.currentBackStack.value.size}"
+                )
+
+                //Starting navigation and current navigation
+                if(navController.currentBackStack.value.size == 2) return@FloatingActionButton
+
                 navController.popBackStack()
 
-                val currentBackStackEntry =
-                    navController.currentBackStackEntry ?: return@FloatingActionButton
-                currentBackStackEntry.destination.route?.let { route ->
-                    navController.navigate(route)
-                }
-
-                //TODO: Add Dashboard if backstack is empty?
+                Log.d(
+                    "BACKSTACK AFTER POP",
+                    "${navController.currentBackStackEntry}, ${navController.currentBackStack.value.size}"
+                )
             }
         }
     ) {
