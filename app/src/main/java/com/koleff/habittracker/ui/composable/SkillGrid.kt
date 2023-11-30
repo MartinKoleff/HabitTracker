@@ -1,5 +1,6 @@
 package com.koleff.habittracker.ui.composable
 
+import android.os.Bundle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,6 +32,7 @@ import androidx.navigation.NavHostController
 import com.koleff.habittracker.common.DataManager
 import com.koleff.habittracker.data.MainScreen
 import com.koleff.habittracker.data.Skill
+
 
 @Composable
 fun ImageCard(
@@ -102,8 +104,9 @@ fun SkillGrid(
                 .weight(1f)
                 .fillMaxHeight()
         ) {
-            items(skillList.size / 2) { currentSkillId ->
-                val currentSkill = skillList[currentSkillId * 2]
+            items(skillList.size / 2) { id ->
+                val currentSkillId = id * 2
+                val currentSkill = skillList[currentSkillId]
 
                 ImageCard(
                     painter = painterResource(id = currentSkill.imageId),
@@ -113,7 +116,7 @@ fun SkillGrid(
                         .fillMaxWidth()
                         .padding(8.dp)
                 ) {
-                    openSkillDetailsScreen(currentSkill, navController)
+                    openSkillDetailsScreen(currentSkillId, navController)
                 }
             }
         }
@@ -123,13 +126,14 @@ fun SkillGrid(
                 .weight(1f)
                 .fillMaxHeight()
         ) {
-            items(skillList.size / 2) { currentSkillId ->
-                val currentSkill = skillList[currentSkillId * 2 + 1]
+            items(skillList.size / 2) { id ->
+                val currentSkillId = id * 2 + 1
+                val currentSkill = skillList[currentSkillId]
 
                 //Top margin for second column
                 Spacer(
                     modifier = Modifier.height(
-                        if (currentSkillId == 0) 50.dp else 0.dp
+                        if (id == 0) 50.dp else 0.dp
                     )
                 )
 
@@ -141,15 +145,14 @@ fun SkillGrid(
                         .fillMaxWidth()
                         .padding(8.dp)
                 ) {
-                    openSkillDetailsScreen(currentSkill, navController)
+                    openSkillDetailsScreen(currentSkillId, navController)
                 }
             }
         }
     }
 }
 
-fun openSkillDetailsScreen(skill: Skill, navController: NavHostController) {
-    DataManager.selectedSkill = skill
-    navController.navigate(MainScreen.SkillDetails.route)
+fun openSkillDetailsScreen(currentSkillId: Int, navController: NavHostController) {
+    navController.navigate(MainScreen.SkillDetails.createRoute(currentSkillId)) //TODO: only pass the id!
 }
 
