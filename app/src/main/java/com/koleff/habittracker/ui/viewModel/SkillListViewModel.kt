@@ -1,36 +1,35 @@
 package com.koleff.habittracker.ui.viewModel
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.koleff.habittracker.R
 import com.koleff.habittracker.data.Skill
 import com.koleff.habittracker.data.SkillCategory
 import com.koleff.habittracker.data.SkillType
+import com.koleff.habittracker.domain.repository.SkillRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SkillListViewModel {
-    private val _skill = MutableStateFlow<List<Skill>?>(null)
-    val skill: StateFlow<List<Skill>?> = _skill
+@HiltViewModel
+class SkillListViewModel @Inject constructor(
+    private val skillRepository: SkillRepository,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+): ViewModel() {
+    private val _skills = MutableStateFlow<List<Skill>?>(null)
+    val skills: StateFlow<List<Skill>?> = _skills
 
     init{
-        mockupSkills()
+        getSkills()
     }
 
-    private fun mockupSkills() {
-        val skillList = mutableListOf<Skill>()
-        var skill: Skill
-        val n = 27
-
-        repeat(n) {
-            skill = Skill(
-                name = "Jetpack Compose $it",
-                description = "Learn Jetpack Compose framework in Android",
-                imageId = R.drawable.jetpack_compose,
-                type = SkillType.COMPLETABLE,
-                category = SkillCategory.LEARNING
-            )
-            skillList.add(skill)
+    private fun getSkills() {
+        viewModelScope.launch(dispatcher) {
+            _skills.value = skillRepository.getSkills()
         }
-
-        _skill.value = skillList
     }
 }
