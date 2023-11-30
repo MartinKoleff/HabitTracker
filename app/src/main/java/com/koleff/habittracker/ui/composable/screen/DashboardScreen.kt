@@ -10,6 +10,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.navArgument
 import com.koleff.habittracker.ui.composable.BottomNavigationBar
 import com.koleff.habittracker.ui.composable.SkillGrid
 import com.koleff.habittracker.ui.composable.TopToolbar
@@ -19,15 +22,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(
+    navController: NavHostController,
     skillListViewModel: SkillListViewModel = hiltViewModel()
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopToolbar("Title")
+            TopToolbar("Dashboard")
         },
         bottomBar = {
-            BottomNavigationBar()
+            BottomNavigationBar(navController = navController)
         }
     ) { innerPadding ->
         val data = skillListViewModel.skills.collectAsState()
