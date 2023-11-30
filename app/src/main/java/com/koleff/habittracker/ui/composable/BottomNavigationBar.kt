@@ -59,31 +59,3 @@ fun BottomNavigationBar(navController: NavHostController) {
         }
     )
 }
-
-@Composable
-fun NavigationItem(
-    navController: NavHostController,
-    screen: MainScreen,
-    icon: ImageVector,
-    label: String
-) {
-    IconButton(
-        onClick = { navController.navigate(screen.route) }
-    ) {
-        Icon(imageVector = icon, contentDescription = label)
-    }
-}
-
-@Composable
-fun FloatingNavigationItem(
-    navController: NavHostController,
-    screen: MainScreen,
-    icon: ImageVector,
-    label: String
-) {
-    FloatingActionButton(
-        onClick = { navController.navigate(screen.route) }
-    ) {
-        Icon(imageVector = icon, contentDescription = label)
-    }
-}
