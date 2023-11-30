@@ -1,6 +1,7 @@
 package com.koleff.habittracker.ui.composable
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -13,10 +14,13 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.koleff.habittracker.data.MainScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopToolbar(title: String) {
+fun TopToolbar(navController: NavHostController, title: String) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     CenterAlignedTopAppBar(
@@ -32,20 +36,20 @@ fun TopToolbar(title: String) {
             )
         },
         navigationIcon = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Go back"
-                )
-            }
+            NavigationItem(
+                navController = navController,
+                screen = null, //Backstack pop
+                icon = Icons.Filled.ArrowBack,
+                label = "Go back"
+            )
         },
         actions = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    imageVector = Icons.Filled.Menu,
-                    contentDescription = "Options menu"
-                )
-            }
+            NavigationItem(
+                navController = navController,
+                screen = null, //Backstack pop
+                icon = Icons.Filled.Menu,
+                label = "Options menu drawer"
+            )
         },
         scrollBehavior = scrollBehavior
     )

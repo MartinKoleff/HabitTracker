@@ -18,7 +18,7 @@ fun MainScreenScaffold(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopToolbar(screenTitle)
+            TopToolbar(navController = navController, title = screenTitle)
         },
         bottomBar = {
             BottomNavigationBar(navController = navController)
