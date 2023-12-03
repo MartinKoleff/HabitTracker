@@ -46,9 +46,9 @@ fun TopToolbar(navController: NavHostController, title: String) {
         actions = {
             NavigationItem(
                 navController = navController,
-                screen = null, //Backstack pop
-                icon = Icons.Filled.Menu,
-                label = "Options menu drawer"
+                screen = MainScreen.Add,
+                icon = Icons.Filled.Add,
+                label = "Add new skill"
             )
         },
         scrollBehavior = scrollBehavior

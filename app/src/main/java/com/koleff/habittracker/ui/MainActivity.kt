@@ -11,6 +11,7 @@ import com.koleff.habittracker.ui.composable.SkillDetailsScreen
 import com.koleff.habittracker.ui.composable.screen.AddSkillScreen
 import com.koleff.habittracker.ui.composable.screen.DashboardScreen
 import com.koleff.habittracker.ui.composable.screen.SearchScreen
+import com.koleff.habittracker.ui.composable.screen.SettingsScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
                 }
                 composable(MainScreen.Search.route) { SearchScreen(navController) }
                 composable(MainScreen.Add.route) { AddSkillScreen(navController) }
+                composable(MainScreen.Settings.route) { SettingsScreen(navController) }
             }
         }
     }

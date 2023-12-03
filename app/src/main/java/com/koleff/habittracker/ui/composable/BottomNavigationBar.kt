@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.FloatingActionButton
@@ -52,9 +53,9 @@ fun BottomNavigationBar(navController: NavHostController) {
             )
             NavigationItem(
                 navController = navController,
-                screen = MainScreen.Add,
-                icon = Icons.Filled.Add,
-                label = "Add new skill"
+                screen = MainScreen.Settings,
+                icon = Icons.Filled.Settings,
+                label = "Settings"
             )
         }
     )
