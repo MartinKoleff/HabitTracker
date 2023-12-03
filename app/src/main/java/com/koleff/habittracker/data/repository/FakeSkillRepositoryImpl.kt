@@ -30,7 +30,7 @@ class FakeSkillRepositoryImpl : SkillRepository {
 
     override suspend fun getSkill(id: Int): Skill {
         return try {
-            getSkills()[id - 1] //starts from 0
+            getSkills()[id] //starts from 0
         }catch (e: IndexOutOfBoundsException){
             getSkills()[0]
         }
