@@ -12,11 +12,10 @@ import com.koleff.habittracker.ui.composable.SettingsList
 @Composable
 fun SettingsScreen(navController: NavHostController) {
     MainScreenScaffold("Settings", navController) { innerPadding ->
+        val modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)
 
-        SettingsList(
-            Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        )
+        SettingsList(modifier)
     }
 }

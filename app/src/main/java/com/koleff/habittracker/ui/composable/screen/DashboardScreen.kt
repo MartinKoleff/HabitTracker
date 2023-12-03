@@ -17,12 +17,14 @@ fun DashboardScreen(
     skillListViewModel: SkillListViewModel = hiltViewModel()
 ) {
     MainScreenScaffold("Dashboard", navController) { innerPadding ->
+        val modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize()
+
         val data = skillListViewModel.skills.collectAsState()
 
         SkillGrid(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize(),
+            modifier = modifier,
             navController = navController,
             skillList = data.value ?: listOf()
         )
