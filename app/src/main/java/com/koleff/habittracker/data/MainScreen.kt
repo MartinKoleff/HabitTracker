@@ -7,4 +7,5 @@ sealed class MainScreen(val route: String) {
     object SkillDetails : MainScreen("skill_details/{skill_id}"){
             fun createRoute(skillId: Int) = "skill_details/$skillId"
     }
+    object Settings : MainScreen("settings")
 }
