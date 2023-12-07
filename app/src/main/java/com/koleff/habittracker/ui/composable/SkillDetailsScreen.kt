@@ -1,17 +1,27 @@
 package com.koleff.habittracker.ui.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
@@ -27,15 +37,19 @@ fun SkillDetailsScreen(
     skillDetailsViewModel: SkillDetailsViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
-    val selectedSkill by skillDetailsViewModel.skill
-
-    LaunchedEffect(selectedSkillId) {
-        skillDetailsViewModel.getSkill(selectedSkillId)
-    }
+    val skilLState by skillDetailsViewModel.state.collectAsState()
 
     MainScreenScaffold("Skill details screen $selectedSkillId", navController) { innerPadding ->
-        selectedSkill?.let { skill ->
-            SkillCard(skill, innerPadding)
+        if (skilLState.isLoading) {
+            LoadingWheel(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+            )
+        } else {
+            skilLState.selectedSkill?.let {
+                SkillCard(skilLState.selectedSkill!!, innerPadding)
+            }
         }
     }
 }
