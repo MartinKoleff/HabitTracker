@@ -17,7 +17,7 @@ class SkillListViewModel @Inject constructor(
     private val skillRepository: SkillRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): ViewModel() {
-    private val _skills = MutableStateFlow<List<Skill>>(mutableListOf()) //TODO: add State class with real DataSource configuration
+    private val _skills = MutableStateFlow<List<Skill>>(mutableListOf())
     val skills: StateFlow<List<Skill>> = _skills
 
     init{

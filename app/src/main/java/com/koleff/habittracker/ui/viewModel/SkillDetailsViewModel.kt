@@ -35,19 +35,17 @@ class SkillDetailsViewModel @AssistedInject constructor(
 
     private fun getSkill(id: Int) {
         viewModelScope.launch(dispatcher) {
-                _state.value = SkillDetailsState(
-                    isLoading = true
-                )
+            _state.value = SkillDetailsState(
+                isLoading = true
+            )
 
-                delay(5000) //Simulate API request
-                Log.d("SkillDetailsViewModel", "Fetched new data for id: $id")
+            val selectedSkill = skillRepository.getSkill(id)
+            Log.d("SkillDetailsViewModel", "Fetched new data for id: $id -> $selectedSkill")
 
-                val selectedSkill = skillRepository.getSkill(id)
-
-                _state.value = SkillDetailsState(
-                    isLoading = false,
-                    selectedSkill = selectedSkill
-                )
+            _state.value = SkillDetailsState(
+                isLoading = false,
+                selectedSkill = selectedSkill
+            )
         }
     }
 
@@ -55,6 +53,7 @@ class SkillDetailsViewModel @AssistedInject constructor(
     interface Factory {
         fun create(skillId: Int, dispatcher: CoroutineDispatcher): SkillDetailsViewModel
     }
+
     companion object {
         fun provideExerciseViewModelFactory(
             factory: Factory,
