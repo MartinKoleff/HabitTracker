@@ -30,7 +30,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideSkillDataSource(mockupSkillDataSource: SkillDataSource): SkillDataSource {
+    fun provideSkillDataSource(): SkillDataSource {
         return MockupSkillDataSource()
     }
 }
