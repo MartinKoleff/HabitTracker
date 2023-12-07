@@ -24,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import com.koleff.habittracker.R
 
@@ -47,10 +46,10 @@ fun SettingsListItem(
             if (hasSwitch) {
                 SwitchButton()
             }else{
-//                Icon(
-//                    painterResource(id = R.drawable.ic_vector_back),
-//                    contentDescription = "Go inside",
-//                )
+                Icon(
+                    painterResource(id = R.drawable.ic_vector_arrow_forward),
+                    contentDescription = "Go inside"
+                )
             }
         }
     )
@@ -76,10 +75,10 @@ fun SettingsListItem(
             if (hasSwitch) {
                 SwitchButton()
             }else{
-//                Icon(
-//                    painterResource(id = R.drawable.ic_vector_back),
-//                    contentDescription = "Go inside",
-//                )
+                Icon(
+                    painterResource(id = R.drawable.ic_vector_arrow_forward),
+                    contentDescription = "Go inside",
+                )
             }
         }
     )
