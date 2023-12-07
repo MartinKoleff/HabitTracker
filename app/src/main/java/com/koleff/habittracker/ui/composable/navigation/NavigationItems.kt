@@ -1,4 +1,4 @@
-package com.koleff.habittracker.ui.composable
+package com.koleff.habittracker.ui.composable.navigation
 
 import android.util.Log
 import androidx.compose.material3.FloatingActionButton

@@ -1,24 +1,19 @@
-package com.koleff.habittracker.ui.composable
+package com.koleff.habittracker.ui.composable.navigation
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.koleff.habittracker.data.MainScreen
+import com.koleff.habittracker.ui.composable.navigation.FloatingNavigationItem
+import com.koleff.habittracker.ui.composable.navigation.NavigationItem
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
