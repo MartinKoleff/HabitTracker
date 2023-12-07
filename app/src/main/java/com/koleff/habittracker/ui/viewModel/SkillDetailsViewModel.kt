@@ -8,12 +8,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.koleff.habittracker.data.Skill
+import com.koleff.habittracker.data.SkillDetailsState
 import com.koleff.habittracker.domain.repository.SkillRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class SkillDetailsViewModel @AssistedInject constructor(
@@ -22,19 +26,30 @@ class SkillDetailsViewModel @AssistedInject constructor(
     @Assisted private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private var _skill: MutableState<Skill?> = mutableStateOf(null)
-    val skill: State<Skill?> = _skill
+    private val _state = MutableStateFlow(SkillDetailsState())
+    val state: StateFlow<SkillDetailsState> = _state
 
-    fun getSkill(id: Int) {
-        _skill.value = null
-        Log.d("SkillDetailsViewModel", "Cleared previous state for id: $id")
     init {
         getSkill(id = skillId)
     }
 
+    private fun getSkill(id: Int) {
         viewModelScope.launch(dispatcher) {
-            _skill.value = skillRepository.getSkill(id)
-            Log.d("SkillDetailsViewModel", "Fetched new data for id: $id")
+                _state.value = SkillDetailsState(
+                    isLoading = true
+                )
+
+                delay(5000) //Simulate API request
+                Log.d("SkillDetailsViewModel", "Fetched new data for id: $id")
+
+                val selectedSkill = skillRepository.getSkill(id)
+
+                _state.value = SkillDetailsState(
+                    isLoading = false,
+                    selectedSkill = selectedSkill
+                )
+        }
+    }
 
     @AssistedFactory
     interface Factory {
